@@ -9,7 +9,6 @@ def merge_sort(array):
         right = merge_sort(array[middle:])
         return merge(left, right)
 
-
 def merge(left, right):
     result = []
     i, j = 0, 0
@@ -32,25 +31,14 @@ def merge(left, right):
 
     return result
 
-print(merge_sort(array))
-
-
-def binary_search(array, element, left, right):
-    if left > right:
-        return False
-
-    middle = (right + left) // 2
-    if array[middle] == element:
-        return middle
-    elif element < array[middle]:
-        return binary_search(array, element, left, middle - 1)
-    else:
-        return binary_search(array, element, middle + 1, right)
-
+array = merge_sort(array)
+print(array)
 
 while True:
     try:
-        element = int(input("Введите любое положительное целое число: "))
+        element = int(input("Введите любое положительное целое число из полученного списка: "))
+        if element < min(array) or element > max(array):
+            print("Указанное число не входит в диапазон списка!")
         if element <= 0:
             raise Exception
         break
@@ -59,5 +47,15 @@ while True:
     except Exception:
         print("Нужно ввести положительное число!")
 
+def binary_search(array, element, left, right):
+    if left > right:
+        return False
+    middle = (right + left) // 2
+    if array[middle] == element:
+        return middle
+    elif element < array[middle]:
+        return binary_search(array, element, left, middle - 1)
+    else:
+        return binary_search(array, element, middle + 1, right)
 
-print(binary_search(array, element, 0,  len(array)))
+print(binary_search(array, element, 0, len(array) - 1))
